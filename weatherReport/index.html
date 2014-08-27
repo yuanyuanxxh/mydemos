@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/weather.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<head>
+    <style>
+        body{
+           /* background-image:url(img/background3.png);
+            repeat-y;*/
+            background-image: url(img/background3_x2.png);
+            /*background-image: -webkit-image-set(url(img/background3.png) 1x,url(img/background3_x2.png) 2x);*/
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+	<div id="myDiv" style="text-align:center">
+		<img src="loading.gif" />
+	</div>
+	<script type="text/javascript" src="Locator.js"></script>
+	<script type="text/javascript" src="YahooWeatherGetter.js"></script>
+	<script type="text/javascript">
+	var myDiv = document.getElementById("myDiv")
+	Locator.getLocationCallback = function(coords){
+		YahooWeatherGetter.showYahooWeather(coords.longitude, coords.latitude, myDiv);
+	}
+	Locator.getLocation(myDiv);
+	</script>
+</body>
+</html>
