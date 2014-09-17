@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>聊天室-by yuanyuan</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/chat/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.4.3.min.css">
+</head>
+<style>
+    #head, #panel-left, #panel-right, #roName, #niName{
+        margin-top: 50px;
+    }
+</style>
+<body>
+<div class="container">
+
+    <div>
+        <ul class="nav nav-tabs navbar-fixed-top row">
+            <li><a href="http://192.168.1.101:9999/index.html">首页</a></li>
+            <li><a href="http://192.168.1.101:9999/resume.html">我的简历</a></li>
+            <li class="active"><a href="http://192.168.1.101:5555/">聊天室</a></li>
+            <li><a href="http://192.168.1.101:9999/weather.html">天气预报</a></li>
+        </ul>
+    </div>
+
+</div><!--End container -->
+<div data-role="page" id="pageId">
+    <div id="head" class="header linear-g">
+        <a href="#panel-left" data-iconpos="notext" class="glyphicon glyphicon-th-large col-xs-2 text-right"> </a>
+        <a class="text-center col-xs-8" id="room"></a>
+        <a href="#panel-right" data-iconpos="notext" class="glyphicon glyphicon-user col-xs-2 text-left"> </a>
+    </div>
+    <div data-role="panel" data-position="left" data-display="push" class="list-group shortcut_menu dn linear-g" id="panel-left">
+        <a href="#changeRoomPage" class="list-group-item"><span class="glyphicon glyphicon-edit"> </span>新建聊天室</a>
+        <div id="room-list">
+            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-home"> </span>聊天室1</a>
+        </div>
+
+    </div>
+    <div data-role="panel" data-position="right" data-display="push" class="user_box text-center dn linear-g" id="panel-right">
+        <div class="u_info">
+            <img class="avatar" src="images/chat/taozi.png" alt="头像">
+            <span class="username">smwell.com</span>
+        </div>
+        <ul class="user_menu">
+            <li class="menu"><a href="#changeNickPage"><span class="glyphicon glyphicon-cog"> </span>更改昵称</a></li>
+            <li class="menu"><a href="#"><span class="glyphicon glyphicon-lock"> </span> &nbsp;修改密码</a></li>
+            <li class="menu"><a href="#"><span class="glyphicon glyphicon-picture"> </span> &nbsp;上传头像</a></li>
+            <li class="menu"><a href="#"><span class="glyphicon glyphicon-off"> </span> &nbsp;安全退出</a></li>
+        </ul>
+    </div>
+    <div data-role="content" class="container" role="main">
+        <ul class="content-reply-box mg10" id="messages">
+        </ul>
+        <form id='send-form'>
+            <input id='send-message' type='text'/>
+            <input id='send-button' type='submit' value='发送'/>
+        </form>
+    </div>
+
+</div>
+<div data-role="page" id="changeRoomPage">
+
+    <div data-role="main" class="ui-content">
+
+        <form id='changeRoom-form'>
+            <label id="roName">Room Name:</label>
+            <input id='roomName' type='text'/>
+            <input id='changeButton' type='submit' value='OK' data-ajax='false'/>
+        </form>
+    </div>
+</div>
+<div data-role="page" id="changeNickPage">
+
+    <div data-role="main" class="ui-content">
+
+        <form id='changeNick-form'>
+            <label id="niName">Nick Name:</label>
+            <input id='nickName' type='text'/>
+            <input id='changeNickButton' type='submit' value='OK' data-ajax='false'/>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="javascripts/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="javascripts/jquery.mobile-1.4.0-rc.1.js"></script>
+<script src='/socket.io/socket.io.js' type='text/javascript'></script>
+<script src='/javascripts/chat/chat.js' type='text/javascript'></script>
+<script src='/javascripts/chat/chat_ui.js' type='text/javascript'></script>
+<script type="text/javascript">
+    $(function(){
+        /*
+         ** 不同页面切换转场效果
+         ** $.mobile.changePage ('/test.html', 'slide/pop/fade/slideup/slidedown/flip/none', false, false);
+         */
+        $('.list-group-item,.menu a').click(function(){
+            $.mobile.changePage($(this).attr('href'), {
+                transition : 'flip', //转场效果
+                reverse : true       //默认为false,设置为true时将导致一个反方向的转场
+            });
+        });
+    });
+</script>
+</body>
+</html>

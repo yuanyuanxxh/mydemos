@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+var debug = require('debug')('main_app');
+var app = require('../app');
+var chatServer = require('../lib/chat_server');
+
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
+
+
+chatServer.listen(server);

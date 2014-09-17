@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="stylesheets/weather/weather.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/weather/index.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/jquery-2.1.1.min.js"></script>
+<head>
+    <style>
+        body{
+            background-image: url(images/weather/background3_x2.png);
+            background-repeat: no-repeat;
+        }
+        a:link, a:visited {
+            color: #FFF;
+            text-decoration: none;}
+        #myDiv{
+            margin-top: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div>
+            <ul class="nav nav-tabs  row">
+                <li class="col-xs-3"><a href="http://pthink.me:9999/index.html">首页</a></li>
+                <li class="col-lg-3"><a href="http://pthink.me:9999/resume.html">我的简历</a></li>
+                <li class="col-xs-3"><a href="http://pthink.me:6666/">聊天室</a></li>
+                <li class="active col-xs-3"><a href="http://pthink.me:9999/weather.html">天气预报</a></li>
+            </ul>
+        </div>
+
+
+    </div><!--End container -->
+
+	<div id="myDiv" style="text-align:center">
+		<img src="images/weather/loading.gif" />
+	</div>
+
+	<script type="text/javascript" src="javascripts/weather/Locator.js"></script>
+	<script type="text/javascript" src="javascripts/weather/YahooWeatherGetter.js"></script>
+	<script type="text/javascript">
+	var myDiv = document.getElementById("myDiv")
+	Locator.getLocationCallback = function(coords){
+		YahooWeatherGetter.showYahooWeather(coords.longitude, coords.latitude, myDiv);
+	}
+	Locator.getLocation(myDiv);
+	</script>
+</body>
+</html>

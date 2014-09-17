@@ -1,0 +1,91 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+/*body{background-color: aliceblue }*/
+
+#metro_box{ width:auto; height:auto; overflow:hidden; align-content: center;margin-left: 10%;}
+
+#logo_001{background:#da562f;}
+#logo_002{background:#00a6d0;}
+#logo_003{background:#8ea300;}
+
+
+#title {
+    width: auto;
+    margin: 10px auto;
+    perspective: 1000px;
+    perspective-origin: 50% -200px;
+    align-content: center;
+    margin-top: 60px;
+}
+h3 {
+    text-align: center;
+    text-transform: uppercase;
+    /*font-size: 3.5em;*/
+    letter-spacing: 0.2em;
+    color:darkgreen;
+    font-family: fantasy;
+    animation: rotate 2s ease-in-out alternate 3;
+}
+h3:before {
+    content: attr(data-shadow);
+    color: transparent;
+    text-shadow: 0 0 15px #111;
+    position: absolute;
+    z-index: -1;
+    margin: -0.1em 0 0 0;
+    animation: skew 2s ease-in-out alternate 3;
+    transform-origin: bottom;
+}
+ul h3{
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#foot{
+    float: right;
+    margin-right: 10px;
+
+}
+@keyframes rotate {
+    from {
+        transform: rotateY(-10deg);
+        text-shadow:  1px -1px #CCC,
+        2px -1px #BBB,
+        3px -2px #AAA,
+        4px -2px #999,
+        5px -3px #888,
+        6px -3px #777;
+    }
+    to {
+        transform: rotateY(10deg);
+        text-shadow:  -1px -1px #CCC,
+        -2px -1px #BBB,
+        -3px -2px #AAA,
+        -4px -2px #999,
+        -5px -3px #888,
+        -6px -3px #777;
+
+    }
+}
+@keyframes skew {
+    from {
+        transform: scaleY(0.3) skewX(-15deg);
+    }
+    to {
+        transform: scaleY(0.3) skewX(-20deg);
+    }
+}
+#pc1{
+    background:#da562f;
+
+}
+#pc2{
+    background:#00a6d0;
+}
+#pc3{
+
+    background:#8ea300;
+}
+
+

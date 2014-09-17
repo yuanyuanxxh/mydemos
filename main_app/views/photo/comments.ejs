@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="ch-ZN">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="yuan's resume page">
+    <meta name="author" content="yuan">
+
+    <link rel='stylesheet' href='/stylesheets/photo/style.css'/>
+    <script src="/javascripts/jquery-2.1.1.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <title>评论照片</title>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">相册</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/photos">首页</a></li>
+                        <li><a href="#about">关于我</a></li>
+                        <li class="active"><a href="#">评论</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他的玩意<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">今天天气如何</a></li>
+                                <li><a href="#">聊个天</a></li>
+                                <li><a href="#">点我没效果的</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <img class="col-xs-12 col-sm-12  img-responsive" src="/photos/<%= path %>"/>
+    </div>
+
+
+    <div class="panel panel-default comment">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary  btn-block" onClick="show()" >我也要评论</button>
+        </div>
+    </div>
+
+    <% comments.forEach(function(comment) { %>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= comment.username %> <h5><%= comment.time || '' %></h5></h3>
+        </div>
+        <div class="panel-body">
+            <%= comment.content %>
+        </div>
+    </div>
+    <% }) %>
+
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+
+                <div id="commentForm">
+                    <form method='post' enctype='multipart/form-data' class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="control-label" style="color: #ffffff">评论内容</label>
+
+                            <div>
+                                <input id="commentContent" type='text' class="form-control" name='comment[content]' placeholder='这里发表你的评论'/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label" style="color: #ffffff">留名</label>
+
+                            <div>
+                                <!--<input type="text" class="form-control" id="photoname" placeholder="Name" , name='photo[name]'>-->
+                                <input type='text' class="form-control" name='comment[username]' placeholder='可以不填'/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                <button id="cancel" type="button" class="btn btn-lg btn-primary" data-dismiss="modal">取消
+                                </button>
+                                <button id="conform" type="submit" class="btn btn-lg btn-primary" value="Upload">提交
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function Open() {
+        $("#commentlists").css({visibility: "visible"});
+    }
+    function Hide() {
+        $("#commentlists").css({visibility: "hidden"});
+    }
+    function show() {
+        $('#commentModal').modal('show');
+
+    }
+    $("form").submit(function(e){
+        var tmp = $("#commentContent")[0].value;
+        if(tmp == ""){
+            alert("请添加评论内容！");
+            return false;
+        }
+    });
+</script>
+</html>

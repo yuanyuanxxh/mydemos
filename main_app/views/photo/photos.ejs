@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="yuan's resume page">
+    <meta name="author" content="yuan">
+
+    <link rel='stylesheet' href='/stylesheets/photo/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+    <script src="/javascripts/jquery-2.1.1.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+
+
+    <title>照片</title>
+</head>
+<body>
+
+<div class="navbar-wrapper">
+    <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">相册</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/photos">首页</a></li>
+                        <li><a href="#about">关于我</a></li>
+                        <li><a href="#">评论</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他的玩意<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">今天天气如何</a></li>
+                                <li><a href="#">聊个天</a></li>
+                                <li><a href="#">点我没效果的</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="panel panel-default comment">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary  btn-block" onClick="uploadpic()">上传照片</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="masonry" class="container-fluid">
+
+    <% photos.forEach(function(photo) { %>
+    <div class="col-xs-6 col-md-3 thumbnail">
+        <a href='/comments?id=<%= photo.id %>'>
+            <img class="pic" src='/photos/<%= photo.path %>'/>
+        </a>
+
+        <div class="caption">
+            <h5><%= photo.name %></h5>
+            <p><%= photo.detail %></p>
+        </div>
+    </div>
+    <% }) %>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h1 class="modal-title" id="myModalLabel">上传照片</h1>
+                </div>
+                <div class="modal-body">
+                    <h1><%= title %></h1>
+
+                    <p>Upload a photo to your account below.</p>
+
+                    <div id="uploadForm">
+                        <form method='post' enctype='multipart/form-data' class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">照片名称</label>
+
+                                <div class="col-sm-10">
+                                    <!--<input type="text" class="form-control" id="photoname" placeholder="Name" , name='photo[name]'>-->
+                                    <input type='text' class="form-control" name='photo[name]' placeholder='Name'/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">照片描述</label>
+
+                                <div class="col-sm-10">
+                                    <!--<input type="text" class="form-control" id="photoname" placeholder="Name" , name='photo[name]'>-->
+                                    <input type='text' class="form-control" name='photo[info]'/>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">选择照片</label>
+
+                                <div class="col-sm-10">
+                                    <!--<input type="text" class="form-control" id="photoname" placeholder="Name" , name='photo[name]'>-->
+                                    <input id="photoPath" type='file' class="form-control" name='photo[image]'/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="cancelUpload" type="button" class="btn btn-lg" data-dismiss="modal">取消
+                                    </button>
+                                    <button id="conformUpload" type="submit" class="btn btn-lg btn-primary"
+                                            value="Upload">上传
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+
+<!--
+<script src="/javascripts/masonry.pkgd.min.js"></script>
+<script src="/javascripts/imagesloaded.pkgd.min.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+
+        var masonryNode = $('#masonry');
+        masonryNode.imagesLoaded(function(){
+            masonryNode.masonry({
+                itemSelector: '.thumbnail',
+                isFitWidth: true
+            });
+        });
+
+
+    });
+</script>
+-->
+
+<script type="text/javascript">
+    var photoId, photoPath;
+
+    function uploadpic() {
+        $('#myModal').modal('show');
+        //alert(1);
+    }
+
+
+    $("form").submit(function(e){
+        var tmp = $("#photoPath")[0].value.split(".");
+        var photoarietyies = ["jpg","png","jpeg"];
+        if($("#photoPath")[0].value == ""){
+            alert("请选择上传的图片！");
+            return false;
+        }
+        else if(photoarietyies.indexOf(tmp[tmp.length-1]) == -1){
+            alert("请选择正确的图片格式！");
+            return false;
+        }
+    });
+</script>
+</html>
